@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request as Request;
 use Illuminate\Http\JsonResponse as JsonResponse;
 use App\Models\User as User;
+use App\Traits\TokenTrait as TokenTrait;
+use App\Models\AuthToken as AuthToken;
 
-class AuthToken extends Controller {
+class AuthTokenController extends Controller {
+
+    use TokenTrait;
 
     public function store(Request $request): JsonResponse {
 
@@ -18,12 +22,15 @@ class AuthToken extends Controller {
             $user = new User();
             $user->email = $request->email;
             $user->save();
-    
-            dd("{$request->email} saved. :)");
 
         }
 
-        dd("{$request->email} already exists. :D");
+        $authToken = new AuthToken();
+        $authToken->auth_token = $this->generateToken(config('auth.auth_token_size'));
+        $authToken->user = $user->id;
+        $authToken->save();
+
+        dd($authToken);
 
     }
 

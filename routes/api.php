@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\AuthToken as AuthToken;
+use App\Http\Controllers\API\AuthTokenController as AuthTokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +14,4 @@ use App\Http\Controllers\API\AuthToken as AuthToken;
 |
 */
 
-Route::post('/token/auth', [AuthToken::class, 'store'])->name('auth.token.store');
+Route::post('/token/auth', [AuthTokenController::class, 'store'])->name('auth.token.store');

@@ -130,4 +130,16 @@ return [
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
     ],
 
+    /*
+    |-------------------------------------------------------------------------
+    | Auth token size
+    |-------------------------------------------------------------------------
+    |
+    | Here you define the length (number of characters) that the 
+    | authentication token must have.
+    |
+    */
+
+    'auth_token_size' => 7,
+
 ];
