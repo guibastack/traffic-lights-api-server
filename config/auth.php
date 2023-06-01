@@ -114,7 +114,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Characters allowed for token
+    | Allowed characters for tokens
     |--------------------------------------------------------------------------
     |
     | Here you define which characters can be used for global token generation.
