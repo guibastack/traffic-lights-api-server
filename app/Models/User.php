@@ -14,7 +14,7 @@ class User extends Model {
     protected $primaryKey = 'id';
     public $timestamps = true;
 
-    public function authTokens(): hasMany {
+    public function authTokens(): HasMany {
 
         return $this->hasMany(AuthToken::class, 'user', 'id');
 
