@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthTokenController as AuthTokenController;
+use App\Http\Controllers\API\BearerTokenController as BearerTokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +16,4 @@ use App\Http\Controllers\API\AuthTokenController as AuthTokenController;
 */
 
 Route::post('/token/auth', [AuthTokenController::class, 'store'])->name('auth.token.store');
+Route::post('/token/bearer', [BearerTokenController::class, 'store'])->name('bearer.token.store');
