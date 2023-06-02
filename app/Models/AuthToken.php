@@ -20,7 +20,7 @@ class AuthToken extends Model {
 
     }
 
-    public function bearerTokens(): HasOne {
+    public function bearerToken(): HasOne {
         
         return $this->hasOne(BearerToken::class, 'auth_token', 'id');
 
