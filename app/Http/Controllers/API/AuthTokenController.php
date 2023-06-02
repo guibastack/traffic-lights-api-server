@@ -10,6 +10,9 @@ use App\Models\AuthToken as AuthToken;
 use App\Http\Requests\AuthTokenRequest as AuthTokenRequest;
 use \Exception as Exception;
 use App\Traits\ResponseTrait as ResponseTrait;
+use App\Mails\AuthTokenMessage as AuthTokenMessage;
+use App\Models\Profile as Profile;
+use Illuminate\Support\Facades\Mail as Mail;
 
 class AuthTokenController extends Controller {
 
@@ -26,14 +29,20 @@ class AuthTokenController extends Controller {
                 $user = new User();
                 $user->email = $request->email;
                 $user->save();
-    
+
+                $profile = new Profile();
+                $profile->user = $user->id;
+                $profile->save();
+
             }
 
             $authToken = new AuthToken();
             $authToken->auth_token = $this->generateToken(config('auth.auth_token_size'));
             $authToken->user = $user->id;
             $authToken->save();
-            
+
+            Mail::to($user->email)->send(new AuthTokenMessage($authToken->auth_token, $user->profile->name == null ? $user->email : $user->profile->name));
+
             return $this->responseInJSON(200, 'A token has been generated and sent to your email.', [
                 'email_provided' => $request->email,
             ]);
