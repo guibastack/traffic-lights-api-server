@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller as Controller;
-use Illuminate\Http\Request as Request;
 use Illuminate\Http\JsonResponse as JsonResponse;
 use App\Models\User as User;
 use App\Traits\TokenTrait as TokenTrait;
 use App\Models\AuthToken as AuthToken;
+use App\Http\Requests\AuthTokenRequest as AuthTokenRequest;
 
 class AuthTokenController extends Controller {
 
     use TokenTrait;
 
-    public function store(Request $request): JsonResponse {
+    public function store(AuthTokenRequest $request): JsonResponse {
 
         $user = User::where('email', '=', $request->email)->first();
 
