@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller as Controller;
-use Illuminate\Http\Request as Request;
 use Illuminate\Http\JsonResponse as JsonResponse;
 use App\Models\User as User;
 use App\Traits\ResponseTrait as ResponseTrait;
 use App\Traits\TokenTrait as TokenTrait;
 use App\Models\BearerToken as BearerToken;
 use \Exception as Exception;
+use App\Http\Requests\BearerTokenRequest as BearerTokenRequest;
 
 class BearerTokenController extends Controller {
 
     use ResponseTrait, TokenTrait;
 
-    public function store(Request $request): JsonResponse {
+    public function store(BearerTokenRequest $request): JsonResponse {
 
         try {
 
