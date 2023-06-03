@@ -38,6 +38,10 @@ class AuthTokenController extends Controller {
             $authToken = new AuthToken();
             $authToken->auth_token = $this->generateToken(config('auth.auth_token_size'));
             $authToken->user = $user->id;
+            $authToken->expires_at = null;
+            $authToken->save();
+
+            $authToken->expires_at = $this->calculateTokenExpiryTime($authToken->created_at, config('auth.auth_token_duration'));
             $authToken->save();
 
             SendAuthTokenMessage::dispatch($user->email, $authToken->auth_token, $user->profile->name == null ? $user->email : $user->profile->name)->onQueue('default');

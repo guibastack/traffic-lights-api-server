@@ -144,6 +144,19 @@ return [
 
     /*
     |-------------------------------------------------------------------------
+    | Auth token duration
+    |-------------------------------------------------------------------------
+    |
+    | Here you can specify the duration (in seconds) of the authentication
+    | token. After this time, the authentication token can no longer be
+    | used and a new authentication token must be generated.
+    |
+    */
+
+    'auth_token_duration' => 1800,
+
+    /*
+    |-------------------------------------------------------------------------
     | Bearer token size
     |-------------------------------------------------------------------------
     |
@@ -155,5 +168,18 @@ return [
     */
 
     'bearer_token_size' => 50,
+
+    /*
+    |-------------------------------------------------------------------------
+    | Bearer token duration
+    |-------------------------------------------------------------------------
+    |
+    | Here you can specify the duration (in seconds) of the bearer token. 
+    | After this time, the bearer token can no longer be used and a new 
+    | bearer token must be generated.
+    |
+    */
+
+    'bearer_token_duration' => 604800,
 
 ];

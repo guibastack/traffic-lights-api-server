@@ -10,6 +10,7 @@ use App\Traits\TokenTrait as TokenTrait;
 use App\Models\BearerToken as BearerToken;
 use \Exception as Exception;
 use App\Http\Requests\BearerTokenRequest as BearerTokenRequest;
+use \DateTime as DateTime;
 
 class BearerTokenController extends Controller {
 
@@ -53,13 +54,18 @@ class BearerTokenController extends Controller {
             $bearerToken = new BearerToken();
             $bearerToken->bearer_token = $this->generateToken(config('auth.bearer_token_size'));
             $bearerToken->auth_token = $authToken->id;
+            $bearerToken->expires_at = null;
             $bearerToken->save();
-    
+
+            $bearerToken->expires_at = $this->calculateTokenExpiryTime($bearerToken->created_at, config('auth.bearer_token_duration'));
+            $bearerToken->save();
+
             return $this->responseInJSON(200, 'A new bearer token has been generated. The provided authentication token can no longer be used to generate new bearer tokens.', [
                 'email_provided' => $request->email,
                 'auth_token_provided' => $request->auth_token,
                 'bearer_token' => $bearerToken->bearer_token,
                 'bearer_token_created_at' => $bearerToken->created_at->format('d-m-y H:i:s'),
+                'bearer_token_expires_at' => $bearerToken->expires_at->format('d-m-Y H:i:s'),
             ]);
         
         } catch (Exception $exception) {
