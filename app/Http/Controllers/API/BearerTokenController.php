@@ -64,7 +64,7 @@ class BearerTokenController extends Controller {
                 'email_provided' => $request->email,
                 'auth_token_provided' => $request->auth_token,
                 'bearer_token' => $bearerToken->bearer_token,
-                'bearer_token_created_at' => $bearerToken->created_at->format('d-m-y H:i:s'),
+                'bearer_token_created_at' => $bearerToken->created_at->format('d-m-Y H:i:s'),
                 'bearer_token_expires_at' => $bearerToken->expires_at->format('d-m-Y H:i:s'),
             ]);
         
