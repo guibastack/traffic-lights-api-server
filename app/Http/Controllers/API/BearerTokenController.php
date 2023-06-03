@@ -67,6 +67,15 @@ class BearerTokenController extends Controller {
             $bearerToken->expires_at = null;
             $bearerToken->save();
 
+            /*
+                I did not register the validity of the token (below) with the 
+                registration section of the rest of the token data (above)
+                to avoid any type of delay that could be caused between the
+                moment of sending the information and the actual 
+                registration in the database, penalizing the datetime token
+                validity.
+            */
+
             $bearerToken->expires_at = $this->calculateTokenExpiryTime($bearerToken->created_at, config('auth.bearer_token_duration'));
             $bearerToken->save();
 
