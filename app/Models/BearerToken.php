@@ -18,4 +18,16 @@ class BearerToken extends Model {
 
     }
 
+    public function alreadyExpiredByUser(): bool {
+        
+        if ($this->manually_expired_by_user_at != null) {
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
 }

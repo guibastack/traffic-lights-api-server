@@ -17,3 +17,4 @@ use App\Http\Controllers\API\BearerTokenController as BearerTokenController;
 
 Route::post('/token/auth', [AuthTokenController::class, 'store'])->name('auth.token.store');
 Route::post('/token/bearer', [BearerTokenController::class, 'store'])->name('bearer.token.store');
+Route::delete('/token/bearer', [BearerTokenController::class, 'destroy'])->name('bearer.token.destroy');

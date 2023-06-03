@@ -38,6 +38,19 @@ class AuthTokenController extends Controller {
             $authToken = new AuthToken();
             $authToken->auth_token = $this->generateToken(config('auth.auth_token_size'));
             $authToken->user = $user->id;
+            $authToken->expires_at = null;
+            $authToken->save();
+
+            /*
+                I did not register the validity of the token (below) with the 
+                registration section of the rest of the token data (above)
+                to avoid any type of delay that could be caused between the
+                moment of sending the information and the actual 
+                registration in the database, penalizing the datetime token
+                validity.
+            */
+
+            $authToken->expires_at = $this->calculateTokenExpiryTime($authToken->created_at, config('auth.auth_token_duration'));
             $authToken->save();
 
             SendAuthTokenMessage::dispatch($user->email, $authToken->auth_token, $user->profile->name == null ? $user->email : $user->profile->name)->onQueue('default');
