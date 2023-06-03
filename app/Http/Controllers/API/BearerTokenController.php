@@ -11,6 +11,7 @@ use App\Models\BearerToken as BearerToken;
 use \Exception as Exception;
 use App\Http\Requests\BearerTokenRequest as BearerTokenRequest;
 use \DateTime as DateTime;
+use Illuminate\Http\Request as Request;
 
 class BearerTokenController extends Controller {
 
@@ -92,6 +93,54 @@ class BearerTokenController extends Controller {
             return $this->responseInJSON(500, 'Internal Server Error. Try again later.', null);
 
         }
+
+    }
+
+    public function destroy(Request $request): JsonResponse {
+
+        if ($request->bearerToken() == null) {
+            
+            return $this->responseInJSON(400, 'Provide a bearer token.', [
+                'bearer_token_provided' => $request->bearerToken(),
+            ]);
+            
+        }
+        
+        $bearerToken = BearerToken::where('bearer_token', '=', $request->bearerToken())->first();
+
+        if ($bearerToken == null) {
+
+            return $this->responseInJSON(400, 'The provided bearer token is not linked to any user account.', [
+                'bearer_token_provided' => $request->bearerToken(),
+            ]);
+
+        }
+
+        if ($bearerToken->alreadyExpiredByUser()) {
+
+            return $this->responseInJSON(409, 'The provided bearer token has already been destroyed by the user.', [
+                'bearer_token_provided' => $request->bearerToken(),
+                'manually_expired_by_user_at' => $bearerToken->manually_expired_by_user_at,
+            ]);
+
+        }
+
+        if ($this->tokenIsExpired(new DateTime($bearerToken->expires_at))) {
+
+            return $this->responseInJSON(409, 'The provided bearer token is expired.', [
+                'bearer_token_provided' => $request->bearerToken(),
+                'bearer_token_expires_at' => $bearerToken->expires_at,
+            ]);
+
+        }
+
+        $bearerToken->manually_expired_by_user_at = new DateTime('now');
+        $bearerToken->save();
+
+        return $this->responseInJson(200, 'The provided bearer token has been destroyed.', [
+            'bearer_token_destroyed' => $request->bearerToken(),
+            'manually_expired_by_user_at' => $bearerToken->manually_expired_by_user_at->format('Y-m-d H:i:s'),
+        ]);
 
     }
 
