@@ -50,6 +50,16 @@ class BearerTokenController extends Controller {
                 ]);
     
             }
+
+            if ($this->tokenIsExpired(new DateTime($authToken->expires_at))) {
+
+                return $this->responseInJSON(401, 'The authentication token provided is expired.', [
+                    'email_provided' => $request->email,
+                    'auth_token_provided' => $request->auth_token,
+                    'auth_token_expired_at' => $authToken->expires_at,
+                ]);
+
+            }
     
             $bearerToken = new BearerToken();
             $bearerToken->bearer_token = $this->generateToken(config('auth.bearer_token_size'));
