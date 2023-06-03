@@ -26,4 +26,16 @@ trait TokenTrait {
 
     }
 
+    public function tokenIsExpired(DateTime $tokenExpirationDateTime): bool {
+        
+        if ($tokenExpirationDateTime >= new DateTime('now')) {
+
+            return false;
+
+        }
+
+        return true;
+
+    }
+
 }
