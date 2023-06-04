@@ -52,7 +52,7 @@ class BearerTokenController extends Controller {
     
             }
 
-            if ($this->tokenIsExpired(new DateTime($authToken->expires_at))) {
+            if ($authToken->isExpired()) {
 
                 return $this->responseInJSON(401, 'The authentication token provided is expired.', [
                     'email_provided' => $request->email,
@@ -125,11 +125,11 @@ class BearerTokenController extends Controller {
 
         }
 
-        if ($this->tokenIsExpired(new DateTime($bearerToken->expires_at))) {
+        if ($bearerToken->isExpired()) {
 
             return $this->responseInJSON(409, 'The provided bearer token is expired.', [
                 'bearer_token_provided' => $request->bearerToken(),
-                'bearer_token_expires_at' => $bearerToken->expires_at,
+                'bearer_token_expired_at' => $bearerToken->expires_at,
             ]);
 
         }

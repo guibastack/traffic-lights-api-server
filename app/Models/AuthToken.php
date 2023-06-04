@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo as BelongsTo;
 use App\Models\User as User;
 use Illuminate\Database\Eloquent\Relations\HasOne as HasOne;
 use App\Models\BearerToken as BearerToken;
+use \DateTime as DateTime;
 
 class AuthToken extends Model {
 
@@ -23,6 +24,18 @@ class AuthToken extends Model {
     public function bearerToken(): HasOne {
         
         return $this->hasOne(BearerToken::class, 'auth_token', 'id');
+
+    }
+
+    public function isExpired() {
+
+        if (new DateTime($this->expires_at) >= new DateTime('now')) {
+
+            return false;
+
+        }
+
+        return true;
 
     }
 
