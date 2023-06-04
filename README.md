@@ -128,3 +128,31 @@
 <h3>
     Destroy the generated bearer token
 </h3>
+
+<h4>
+    Request
+</h4>
+<ul>
+    <li>URI: /api/token/bearer</li>
+    <li>METHOD: DELETE</li>
+    <li>Header Auth (Bearer): bearer_token_generated</li>
+</ul>
+<h4>
+    Response
+</h4>
+<ul>
+    <li>
+        <b>200</b>: The provided bearer token has been
+        destroyed.
+    </li>
+    <li>
+        <b>400</b>: The request is missing a bearer token
+        or the provided bearer token is not linked to
+        any user account.
+    </li>
+    <li>
+        <b>409</b>: The provided bearer token is already
+        expired (expired by expiry date or manually expired
+        by user).
+    </li>
+</ul>
