@@ -93,6 +93,38 @@
     Generate a bearer token
 </h3>
 
+<h4>
+    Request
+</h4>
+<ul>
+    <li>URI: /api/token/bearer</li>
+    <li>METHOD: POST</li>
+    <li>Body Type: JSON</li>
+    <li>Body data: <code>{"email": "your_email_address", "auth_token": "abc0123"}</code></li>
+</ul>
+<h4>
+    Response
+</h4>
+<ul>
+    <li>
+        <b>200</b>: A new bearer token has been generated.
+    </li>
+    <li>
+        <b>401</b>: The email address provided is not registered,
+        the provided auth token is not linked to the provided
+        email address or the authentication token provided is
+        expired.
+    </li>
+    <li>
+        <b>409</b>: The provided authentication token has already
+        been used.
+    </li>
+    <li>
+        <b>500</b>: Internal server error. It cannot be resolved 
+        on the client side.
+    </li>
+</ul>
+
 <h3>
     Destroy the generated bearer token
 </h3>
