@@ -19,27 +19,21 @@ class BearerToken extends Model {
 
     }
 
-    public function alreadyExpiredByUser(): bool {
-        
+    public function isExpired(): bool {
+
+        if (new DateTime($this->expires_at) < new DateTime('now')) {
+            
+            return true;
+
+        }
+
         if ($this->manually_expired_by_user_at != null) {
 
             return true;
 
         }
-
+        
         return false;
-
-    }
-
-    public function isExpired(): bool {
-
-        if (new DateTime($this->expires_at) >= new DateTime('now')) {
-            
-            return false;
-
-        }
-
-        return true;
 
     }
 

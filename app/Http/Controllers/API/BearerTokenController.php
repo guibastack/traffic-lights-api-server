@@ -115,22 +115,24 @@ class BearerTokenController extends Controller {
             ]);
 
         }
-
-        if ($bearerToken->alreadyExpiredByUser()) {
-
-            return $this->responseInJSON(409, 'The provided bearer token has already been destroyed by the user.', [
-                'bearer_token_provided' => $request->bearerToken(),
-                'manually_expired_by_user_at' => $bearerToken->manually_expired_by_user_at,
-            ]);
-
-        }
-
+        
         if ($bearerToken->isExpired()) {
+            
+            if ($bearerToken->manually_expired_by_user_at != null) {
+                
+                return $this->responseInJSON(409, 'The provided bearer token has already been destroyed by the user.', [
+                    'bearer_token_provided' => $request->bearerToken(),
+                    'manually_expired_by_user_at' => $bearerToken->manually_expired_by_user_at,
+                ]);
 
-            return $this->responseInJSON(409, 'The provided bearer token is expired.', [
-                'bearer_token_provided' => $request->bearerToken(),
-                'bearer_token_expired_at' => $bearerToken->expires_at,
-            ]);
+            } else {
+                
+                return $this->responseInJSON(409, 'The provided bearer token is expired.', [
+                    'bearer_token_provided' => $request->bearerToken(),
+                    'bearer_token_expired_at' => $bearerToken->expires_at,
+                ]);
+
+            }
 
         }
 
