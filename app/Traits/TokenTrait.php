@@ -27,6 +27,14 @@ trait TokenTrait {
 
     }
 
+    /*
+
+        It is important that this function is decoupled from the token
+        generation function, because in the future, not all tokens
+        will not necessarily repeat.
+
+    */
+
     public function tokenIsUnique(Model $model, string $column, string $token, ?array $dataSet): bool {
 
         $query = $model->where($column, '=', $token);
