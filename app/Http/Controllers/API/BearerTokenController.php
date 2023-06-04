@@ -63,7 +63,35 @@ class BearerTokenController extends Controller {
             }
     
             $bearerToken = new BearerToken();
-            $bearerToken->bearer_token = $this->generateToken(config('auth.bearer_token_size'));
+
+            /*
+
+                As the token generation and token uniqueness check methods are
+                decoupled, this action is the one putting both methods
+                together to form the final token generation logic.
+
+                An important point to be aware of in this type of logic is that
+                the lower the probability of generating different token (range),
+                the greater the probability of an infinite loop being 
+                generated on the server.
+
+                To avoid this, throw an exception whenever the loop below 
+                reaches a retry limit.
+
+                I didn't implement the solution for the infinite looping, because
+                the generation range of both tokens (auth and bearer) is too big
+                for this application and for the amount of users I expect to
+                receive. Perhaps in the future it will be necessary. In that 
+                case, I'll leave this comment block as a 'ToDo'.
+
+            */
+
+            do {
+
+                $bearerToken->bearer_token = $this->generateToken(config('auth.bearer_token_size'));
+
+            } while (!$this->tokenIsUnique(new BearerToken(), 'bearer_token', $bearerToken->bearer_token, null));
+
             $bearerToken->auth_token = $authToken->id;
             $bearerToken->expires_at = null;
             $bearerToken->save();
