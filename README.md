@@ -3,7 +3,7 @@
 </h1>
 
 <p>
-    ** This repository represents the project's server API
+    This repository represents the project's server API
     and must be installed on the server.
 </p>
 
@@ -36,27 +36,32 @@
 </h3>
 <ol>
     <li>
-        Clone the main repository on your local machine: 
-        <code>git clone https://github.com/guibastack/traffic-lights-api-server.git</code>.
+        In a terminal with git access, run <code>git clone https://github.com/guibastack/traffic-lights-api-server.git</code> to clone the main
+        repository for this project to your local machine.
     </li>
     <li>
-        In a terminal inside the project directory, run the 
-        <code>composer install</code> to install the 
-        Laravel dependencies.
+        In a terminal inside the project directory, run <code>composer install</code> 
+        to install all Laravel dependencies.
     </li>
     <li>
-        Rename the ".env.example" configuration file to ".env".
+        Rename the <b>.env.example</b> configuration file to <b>.env</b>.
     </li>
     <li>
-        Create a database and add access information in the database 
-        section of the .env configuration file.
+        Create a specific database for this project and add the access 
+        data in the equivalent section in the .env configuration file.
     </li>
     <li>
-        Run <code>php artisan queue:work --queue=default</code> to
-        start the queue to send authentication tokens to users.
+        In a terminal within the project, run <code>php artisan migrate</code>
+        to perform the database migrations.
     </li>
     <li>
-        Run <code>php artisan serve</code> to start the local
+        In a terminal within the project, run 
+        <code>php artisan queue:work --queue=default</code> to
+        start queuing to send authentication tokens to users.
+    </li>
+    <li>
+        In a terminal within the project, run 
+        <code>php artisan serve</code> to start the local
         server.
     </li>
 </ol>
