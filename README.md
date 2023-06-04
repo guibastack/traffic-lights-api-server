@@ -92,6 +92,13 @@
 <h3>
     Generate a bearer token
 </h3>
+<p>
+    Before generating a bearer token, it is necessary 
+    to generate an authentication token. The authentication
+    token will bind to the generated bearer token. ** Each
+    authentication token can only generate 1 (one)
+    bearer token.
+</p>
 
 <h4>
     Request
