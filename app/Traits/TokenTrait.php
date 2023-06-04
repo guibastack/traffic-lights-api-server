@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use \DateTime as DateTime;
+use Illuminate\Database\Eloquent\Model as Model;
 
 trait TokenTrait {
 
@@ -23,6 +24,38 @@ trait TokenTrait {
     public function calculateTokenExpiryTime(DateTime $tokenGenerationDateTime, int $tokenExpirationInSeconds): DateTime {
         
         return new DateTime(date('Y-m-d H:i:s', ($tokenGenerationDateTime->getTimestamp() + $tokenExpirationInSeconds)));
+
+    }
+
+    /*
+
+        It is important that this function is decoupled from the token
+        generation function, because in the future, not all tokens
+        will not necessarily repeat.
+
+    */
+
+    public function tokenIsUnique(Model $model, string $column, string $token, ?array $dataSet): bool {
+
+        $query = $model->where($column, '=', $token);
+
+        if ($dataSet != null) {
+
+            foreach ($dataSet as $key => $value) {
+                
+                $query->where($key, '=', $value);
+                
+            }
+
+        }
+
+        if (count($query->get()) > 0) {
+
+            return false;
+
+        }
+
+        return true;
 
     }
 
