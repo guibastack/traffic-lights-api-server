@@ -3,18 +3,9 @@
 </h1>
 
 <p>
-    This repository represents the project's server API
-    and must be installed on the server.
-</p>
-
-<h2>
-    What is it?
-</h2>
-
-<p>
     Map and know in real time if the traffic lights in your
-    region are open or closed. This repository represents
-    the project's server API.
+    region are open or closed. This repository represents the 
+    project's server API and must be installed on the server.
 </p>
 
 <h2>
@@ -34,6 +25,7 @@
 <h3>
     Locally
 </h3>
+
 <ol>
     <li>
         In a terminal with git access, run <code>git clone https://github.com/guibastack/traffic-lights-api-server.git</code> to clone the main
@@ -65,3 +57,42 @@
         server.
     </li>
 </ol>
+
+<h2>
+    Requests
+</h2>
+
+<h3>
+    Generate an authentication token
+</h3>
+
+<h4>
+    Request
+</h4>
+<ul>
+    <li>URI: /api/token/auth</li>
+    <li>METHOD: POST</li>
+    <li>Body Type: JSON</li>
+    <li>Body data: <code>{"email": "your_email_address"}</code></li>
+</ul>
+<h4>
+    Response
+</h4>
+<ul>
+    <li>
+        <b>200</b>: A new authentication token will be sent to the
+        provided email address.
+    </li>
+    <li>
+        <b>500</b>: Internal server error. It cannot be resolved 
+        on the client side.
+    </li>
+</ul>
+
+<h3>
+    Generate a bearer token
+</h3>
+
+<h3>
+    Destroy the generated bearer token
+</h3>
