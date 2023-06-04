@@ -95,7 +95,7 @@
 <p>
     Before generating a bearer token, it is necessary 
     to generate an authentication token. The authentication
-    token will bind to the generated bearer token. ** Each
+    token will bind to the generated bearer token. Each
     authentication token can only generate 1 (one)
     bearer token.
 </p>
@@ -163,3 +163,11 @@
         by user).
     </li>
 </ul>
+
+<h2>
+    License
+</h2>
+<p>
+    This project is under the MIT license. See
+    the license in full by <a href="https://github.com/guibastack/traffic-lights-api-server/blob/main/LICENSE">clicking here</a>.
+</p>
