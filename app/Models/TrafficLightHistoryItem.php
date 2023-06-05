@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo as BelongsTo;
 use App\Models\TrafficLight as TrafficLight;
+use App\Models\User as User;
 
 class TrafficLightHistoryItem extends Model {
 
@@ -15,6 +16,12 @@ class TrafficLightHistoryItem extends Model {
     public function ownerTrafficLight(): BelongsTo {
         
         return $this->belongsTo(TrafficLight::class, 'traffic_light', 'id');
+
+    }
+
+    public function ownerUser(): BelongsTo {
+        
+        return $this->belongsTo(User::class, 'user', 'id');
 
     }
 

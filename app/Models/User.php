@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany as HasMany;
 use App\Models\AuthToken as AuthToken;
 use Illuminate\Database\Eloquent\Relations\HasOne as HasOne;
 use App\Models\Profile as Profile;
+use App\Models\TrafficLightHistoryItem as TrafficLightHistoryItem;
 
 class User extends Model {
 
@@ -23,6 +24,12 @@ class User extends Model {
     public function profile(): HasOne {
         
         return $this->hasOne(Profile::class, 'user', 'id');
+
+    }
+
+    public function trafficLights(): HasMany {
+        
+        return $this->hasMany(TrafficLightHistoryItem::class, 'user', 'id');
 
     }
 
