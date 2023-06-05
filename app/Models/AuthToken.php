@@ -15,7 +15,7 @@ class AuthToken extends Model {
     protected $primaryKey = 'id';
     public $timestamps = true;
 
-    public function user(): BelongsTo {
+    public function ownerUser(): BelongsTo {
         
         return $this->belongsTo(User::class, 'user', 'id');
 
