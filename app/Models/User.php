@@ -27,7 +27,7 @@ class User extends Model {
 
     }
 
-    public function trafficLights(): HasMany {
+    public function trafficLightsHistoryItems(): HasMany {
         
         return $this->hasMany(TrafficLightHistoryItem::class, 'user', 'id');
 
