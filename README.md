@@ -15,13 +15,16 @@
         Latest version of PHP.
     </li>
     <li>
-        Latest version of Composer.
+        Composer.
     </li>
     <li>
         MySQL or MariaDB.
     </li>
     <li>
         Access to a terminal.
+    </li>
+    <li>
+        Git Bash (or equivalent for accessing GIT functionality).
     </li>
 </ul>
 
@@ -39,11 +42,12 @@
         to install all Laravel dependencies.
     </li>
     <li>
-        Rename the <b>.env.example</b> configuration file to <b>.env</b>.
+        In the root directory of the project, rename the <b>.env.example</b> configuration file to <b>.env</b>.
     </li>
     <li>
         Create a specific database for this project and add the access 
-        data in the equivalent section in the .env configuration file.
+        data in the equivalent section in the .env configuration file 
+        (in the root directory of the project).
     </li>
     <li>
         In a terminal within the project, run <code>php artisan migrate</code>
@@ -52,7 +56,8 @@
     <li>
         In a terminal within the project, run 
         <code>php artisan queue:work --queue=default</code> to
-        start queuing to send authentication tokens to users.
+        start queuing to send authentication tokens (via email) 
+        to users.
     </li>
     <li>
         In a terminal within the project, run 
@@ -73,10 +78,10 @@
     Request
 </h4>
 <ul>
-    <li>URI: /api/token/auth</li>
-    <li>Method: POST</li>
-    <li>Body Type: JSON</li>
-    <li>Body data: <code>{"email": "your_email_address"}</code></li>
+    <li><b>URI</b>: /api/token/auth</li>
+    <li><b>Method</b>: POST</li>
+    <li><b>Body Type</b>: JSON</li>
+    <li><b>Body data</b>: <code>{"email": "your_email_address"}</code></li>
 </ul>
 <h4>
     Response (codes)
@@ -107,10 +112,10 @@
     Request
 </h4>
 <ul>
-    <li>URI: /api/token/bearer</li>
-    <li>Method: POST</li>
-    <li>Body Type: JSON</li>
-    <li>Body data: <code>{"email": "your_email_address", "auth_token": "abc0123"}</code></li>
+    <li><b>URI</b>: /api/token/bearer</li>
+    <li><b>Method</b>: POST</li>
+    <li><b>Body Type</b>: JSON</li>
+    <li><b>Body data</b>: <code>{"email": "your_email_address", "auth_token": "abc0123"}</code></li>
 </ul>
 <h4>
     Response (codes)
@@ -143,9 +148,9 @@
     Request
 </h4>
 <ul>
-    <li>URI: /api/token/bearer</li>
-    <li>Method: DELETE</li>
-    <li>Header Auth (Bearer): bearer_token_generated</li>
+    <li><b>URI</b>: /api/token/bearer</li>
+    <li><b>Method</b>: DELETE</li>
+    <li><b>Header Auth (Bearer)</b>: bearer_token_generated</li>
 </ul>
 <h4>
     Response (codes)
@@ -164,6 +169,10 @@
         <b>409</b>: The provided bearer token is already
         expired (expired by expiry date or manually expired
         by user).
+    </li>
+    <li>
+        <b>500</b>: Internal server error. It cannot be
+        resolved on the client side.
     </li>
 </ul>
 
