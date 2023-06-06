@@ -1,5 +1,5 @@
 <h1>
-    Traffic Lights (API Server)
+    🚦 Traffic Lights (API Server) 🚦
 </h1>
 
 <p>
@@ -8,28 +8,31 @@
     project's server API and must be installed on the server.
 </p>
 
-<h2>
-    About this doc
-</h2>
+<h2>Requirements</h2>
 
-<p>
-    Both the documentation and the project are not fully
-    finalized. This documentation will be updated as the
-    project gains new features.
-</p>
+<ul>
+    <li>
+        Latest version of PHP.
+    </li>
+    <li>
+        Latest version of Composer.
+    </li>
+    <li>
+        MySQL or MariaDB.
+    </li>
+    <li>
+        Access to a terminal.
+    </li>
+</ul>
 
 <h2>
     Install
 </h2>
 
-<h3>
-    Locally
-</h3>
-
 <ol>
     <li>
         In a terminal with git access, run <code>git clone https://github.com/guibastack/traffic-lights-api-server.git</code> to clone the main
-        repository for this project to your local machine.
+        repository for this project.
     </li>
     <li>
         In a terminal inside the project directory, run <code>composer install</code> 
@@ -71,12 +74,12 @@
 </h4>
 <ul>
     <li>URI: /api/token/auth</li>
-    <li>METHOD: POST</li>
+    <li>Method: POST</li>
     <li>Body Type: JSON</li>
     <li>Body data: <code>{"email": "your_email_address"}</code></li>
 </ul>
 <h4>
-    Response
+    Response (codes)
 </h4>
 <ul>
     <li>
@@ -105,12 +108,12 @@
 </h4>
 <ul>
     <li>URI: /api/token/bearer</li>
-    <li>METHOD: POST</li>
+    <li>Method: POST</li>
     <li>Body Type: JSON</li>
     <li>Body data: <code>{"email": "your_email_address", "auth_token": "abc0123"}</code></li>
 </ul>
 <h4>
-    Response
+    Response (codes)
 </h4>
 <ul>
     <li>
@@ -141,11 +144,11 @@
 </h4>
 <ul>
     <li>URI: /api/token/bearer</li>
-    <li>METHOD: DELETE</li>
+    <li>Method: DELETE</li>
     <li>Header Auth (Bearer): bearer_token_generated</li>
 </ul>
 <h4>
-    Response
+    Response (codes)
 </h4>
 <ul>
     <li>
