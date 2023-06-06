@@ -1,5 +1,5 @@
 <h1>
-    Traffic Lights (API Server)
+    🚦 Traffic Lights (API Server) 🚦
 </h1>
 
 <p>
@@ -8,39 +8,46 @@
     project's server API and must be installed on the server.
 </p>
 
-<h2>
-    About this doc
-</h2>
+<h2>Requirements</h2>
 
-<p>
-    Both the documentation and the project are not fully
-    finalized. This documentation will be updated as the
-    project gains new features.
-</p>
+<ul>
+    <li>
+        Latest version of PHP.
+    </li>
+    <li>
+        Composer.
+    </li>
+    <li>
+        MySQL or MariaDB.
+    </li>
+    <li>
+        Access to a terminal.
+    </li>
+    <li>
+        Git Bash (or equivalent for accessing GIT functionality).
+    </li>
+</ul>
 
 <h2>
     Install
 </h2>
 
-<h3>
-    Locally
-</h3>
-
 <ol>
     <li>
         In a terminal with git access, run <code>git clone https://github.com/guibastack/traffic-lights-api-server.git</code> to clone the main
-        repository for this project to your local machine.
+        repository for this project.
     </li>
     <li>
         In a terminal inside the project directory, run <code>composer install</code> 
         to install all Laravel dependencies.
     </li>
     <li>
-        Rename the <b>.env.example</b> configuration file to <b>.env</b>.
+        In the root directory of the project, rename the <b>.env.example</b> configuration file to <b>.env</b>.
     </li>
     <li>
         Create a specific database for this project and add the access 
-        data in the equivalent section in the .env configuration file.
+        data in the equivalent section in the .env configuration file 
+        (in the root directory of the project).
     </li>
     <li>
         In a terminal within the project, run <code>php artisan migrate</code>
@@ -49,7 +56,8 @@
     <li>
         In a terminal within the project, run 
         <code>php artisan queue:work --queue=default</code> to
-        start queuing to send authentication tokens to users.
+        start queuing to send authentication tokens (via email) 
+        to users.
     </li>
     <li>
         In a terminal within the project, run 
@@ -70,13 +78,13 @@
     Request
 </h4>
 <ul>
-    <li>URI: /api/token/auth</li>
-    <li>METHOD: POST</li>
-    <li>Body Type: JSON</li>
-    <li>Body data: <code>{"email": "your_email_address"}</code></li>
+    <li><b>URI</b>: /api/token/auth</li>
+    <li><b>Method</b>: POST</li>
+    <li><b>Body Type</b>: JSON</li>
+    <li><b>Body data</b>: <code>{"email": "your_email_address"}</code></li>
 </ul>
 <h4>
-    Response
+    Response (codes)
 </h4>
 <ul>
     <li>
@@ -104,13 +112,13 @@
     Request
 </h4>
 <ul>
-    <li>URI: /api/token/bearer</li>
-    <li>METHOD: POST</li>
-    <li>Body Type: JSON</li>
-    <li>Body data: <code>{"email": "your_email_address", "auth_token": "abc0123"}</code></li>
+    <li><b>URI</b>: /api/token/bearer</li>
+    <li><b>Method</b>: POST</li>
+    <li><b>Body Type</b>: JSON</li>
+    <li><b>Body data</b>: <code>{"email": "your_email_address", "auth_token": "abc0123"}</code></li>
 </ul>
 <h4>
-    Response
+    Response (codes)
 </h4>
 <ul>
     <li>
@@ -140,12 +148,12 @@
     Request
 </h4>
 <ul>
-    <li>URI: /api/token/bearer</li>
-    <li>METHOD: DELETE</li>
-    <li>Header Auth (Bearer): bearer_token_generated</li>
+    <li><b>URI</b>: /api/token/bearer</li>
+    <li><b>Method</b>: DELETE</li>
+    <li><b>Header Auth (Bearer)</b>: bearer_token_generated</li>
 </ul>
 <h4>
-    Response
+    Response (codes)
 </h4>
 <ul>
     <li>
@@ -161,6 +169,10 @@
         <b>409</b>: The provided bearer token is already
         expired (expired by expiry date or manually expired
         by user).
+    </li>
+    <li>
+        <b>500</b>: Internal server error. It cannot be
+        resolved on the client side.
     </li>
 </ul>
 
