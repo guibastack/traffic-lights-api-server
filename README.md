@@ -8,6 +8,13 @@
     project's server API and must be installed on the server.
 </p>
 
+<p>
+    ** The <strong>Traffic Lights App</strong> (developed in
+    React Native by me) will consume this API, sending and 
+    fetching traffic light data. Access the App repository
+    by <a href="https://github.com/guibastack/traffic-lights-app-react-native">clicking here</a>. **
+</p>
+
 <h2>Requirements</h2>
 
 <ul>
@@ -42,7 +49,7 @@
         to install all Laravel dependencies.
     </li>
     <li>
-        In the root directory of the project, rename the <b>.env.example</b> configuration file to <b>.env</b>.
+        In the root directory of the project, rename the <strong>.env.example</strong> configuration file to <strong>.env</strong>.
     </li>
     <li>
         Create a specific database for this project and add the access 
@@ -78,21 +85,33 @@
     Request
 </h4>
 <ul>
-    <li><b>URI</b>: /api/token/auth</li>
-    <li><b>Method</b>: POST</li>
-    <li><b>Body Type</b>: JSON</li>
-    <li><b>Body data</b>: <code>{"email": "your_email_address"}</code></li>
+    <li>
+        <strong>URI</strong>: /api/token/auth
+    </li>
+    <li>
+        <strong>Method</strong>: POST
+    </li>
+    <li>
+        <strong>Body type</strong>: JSON
+    </li>
+    <li>
+        <strong>Body data</strong>: <code>{"email": "your_email_address"}</code>
+    </li>
 </ul>
 <h4>
     Response (codes)
 </h4>
 <ul>
     <li>
-        <b>200</b>: A new authentication token will be sent to the
+        <strong>200</strong>: A new authentication token will be sent to the
         provided email address.
     </li>
     <li>
-        <b>500</b>: Internal server error. It cannot be resolved 
+        <strong>422</strong>: There are semantic errors in the
+        formation of your JSON request.
+    </li>
+    <li>
+        <strong>500</strong>: Internal server error. It cannot be resolved 
         on the client side.
     </li>
 </ul>
@@ -112,30 +131,42 @@
     Request
 </h4>
 <ul>
-    <li><b>URI</b>: /api/token/bearer</li>
-    <li><b>Method</b>: POST</li>
-    <li><b>Body Type</b>: JSON</li>
-    <li><b>Body data</b>: <code>{"email": "your_email_address", "auth_token": "abc0123"}</code></li>
+    <li>
+        <strong>URI</strong>: /api/token/bearer
+    </li>
+    <li>
+        <strong>Method</strong>: POST
+    </li>
+    <li>
+        <strong>Body type</strong>: JSON
+    </li>
+    <li>
+        <strong>Body data</strong>: <code>{"email": "your_email_address", "auth_token": "abc0123"}</code>
+    </li>
 </ul>
 <h4>
     Response (codes)
 </h4>
 <ul>
     <li>
-        <b>200</b>: A new bearer token has been generated.
+        <strong>200</strong>: A new bearer token has been generated.
     </li>
     <li>
-        <b>401</b>: The email address provided is not registered,
+        <strong>401</strong>: The email address provided is not registered,
         the provided auth token is not linked to the provided
         email address or the authentication token provided is
         expired.
     </li>
     <li>
-        <b>409</b>: The provided authentication token has already
+        <strong>409</strong>: The provided authentication token has already
         been used.
     </li>
     <li>
-        <b>500</b>: Internal server error. It cannot be resolved 
+        <strong>422</strong>: There are semantic errors in the
+        formation of your JSON request.
+    </li>
+    <li>
+        <strong>500</strong>: Internal server error. It cannot be resolved 
         on the client side.
     </li>
 </ul>
@@ -148,30 +179,88 @@
     Request
 </h4>
 <ul>
-    <li><b>URI</b>: /api/token/bearer</li>
-    <li><b>Method</b>: DELETE</li>
-    <li><b>Header Auth (Bearer)</b>: bearer_token_generated</li>
+    <li>
+        <strong>URI</strong>: /api/token/bearer
+    </li>
+    <li>
+        <strong>Method</strong>: DELETE
+    </li>
+    <li>
+        <strong>Header auth (Bearer token)</strong>: bearer_token_generated
+    </li>
 </ul>
 <h4>
     Response (codes)
 </h4>
 <ul>
     <li>
-        <b>200</b>: The provided bearer token has been
+        <strong>200</strong>: The provided bearer token has been
         destroyed.
     </li>
     <li>
-        <b>400</b>: The request is missing a bearer token
+        <strong>400</strong>: The request is missing a bearer token
         or the provided bearer token is not linked to
         any user account.
     </li>
     <li>
-        <b>409</b>: The provided bearer token is already
+        <strong>409</strong>: The provided bearer token is already
         expired (expired by expiry date or manually expired
         by user).
     </li>
     <li>
-        <b>500</b>: Internal server error. It cannot be
+        <strong>500</strong>: Internal server error. It cannot be
+        resolved on the client side.
+    </li>
+</ul>
+
+<h3>
+    Map new traffic light
+</h3>
+
+<h4>
+    Request
+</h4>
+<ul>
+    <li>
+        <strong>URI</strong>: /api/trafficlights
+    </li>
+    <li>
+        <strong>Method</strong>: POST
+    </li>
+    <li>
+        <strong>Header auth (Bearer Token)</strong>: bearer_token_generated
+    </li>
+    <li>
+        <strong>Body type</strong>: JSON
+    </li>
+    <li>
+        <strong>Body data</strong>: <code>{"latitude": "99,99999999", "longitude": "99,99999999", "name": "Crossing between 1st street and 2nd street", "red_light_start": (string format: "2023-06-07 15:40:00"), "red_light_duration_in_seconds": 45, "yellow_light_duration_in_seconds": 2, "green_light_duration_in_seconds": 180}</code>
+    </li>
+</ul>
+
+<h4>
+    Response (codes)
+</h4>
+<ul>
+    <li>
+        <strong>200</strong>: Traffic light successfully mapped.
+    </li>
+    <li>
+        <strong>400</strong>: The request is missing a bearer token
+        or the provided bearer token is not linked to
+        any user account.
+    </li>
+    <li>
+        <strong>409</strong>: The provided bearer token is already
+        expired (expired by expiry date or manually expired
+        by user).
+    </li>
+    <li>
+        <strong>422</strong>: There are semantic errors in the
+        formation of your JSON request.
+    </li>
+    <li>
+        <strong>500</strong>: Internal server error. It cannot be
         resolved on the client side.
     </li>
 </ul>
