@@ -5,7 +5,7 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\ValidationRule as ValidationRule;
 use \Closure as Closure;
 
-class MinimumStringLength implements ValidationRule {
+class MinimumStringLengthRule implements ValidationRule {
 
     private int $minimumSize;
 

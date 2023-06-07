@@ -5,7 +5,7 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\ValidationRule as ValidationRule;
 use \Closure as Closure;
 
-class IntegerGreaterThanOrEqual implements ValidationRule {
+class IntegerGreaterThanOrEqualRule implements ValidationRule {
 
     private int $minimum;
 

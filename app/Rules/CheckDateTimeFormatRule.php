@@ -7,7 +7,7 @@ use \Closure as Closure;
 use \DateTime as DateTime;
 use \Exception as Exception;
 
-class CheckDateTimeFormat implements ValidationRule {
+class CheckDateTimeFormatRule implements ValidationRule {
 
     public function validate(string $attribute, mixed $value, Closure $fail): void {
 

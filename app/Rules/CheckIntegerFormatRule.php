@@ -5,7 +5,7 @@ namespace App\Rules;
 use \Closure as Closure;
 use Illuminate\Contracts\Validation\ValidationRule as ValidationRule;
 
-class CheckIntegerFormat implements ValidationRule {
+class CheckIntegerFormatRule implements ValidationRule {
 
     public function __construct() {}
 
