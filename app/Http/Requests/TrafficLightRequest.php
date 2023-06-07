@@ -4,7 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as FormRequest;
 use App\Rules\CheckDateTimeFormat as CheckDateTimeFormat;
-use App\Rules\DateTimeGreaterThanDateTime as DateTimeGreaterThanDateTime;
+use App\Rules\IntegerGreaterThanOrEqual as IntegerGreaterThanOrEqual;
+use App\Rules\CheckIntegerFormat as CheckIntegerFormat;
+use App\Rules\DateTimeCannotGreaterThanOrEqualToRule as DateTimeCannotGreaterThanOrEqualToRule;
+use \DateTime as DateTime;
+use App\Rules\MinimumStringLength as MinimumStringLength;
 
 class TrafficLightRequest extends FormRequest {
 
@@ -21,13 +25,11 @@ class TrafficLightRequest extends FormRequest {
         return [
             'latitude' => ['required', 'bail', ],
             'longitude' => ['required', 'bail', ],
-            'name' => ['required', 'bail', ], 
-            'red_light_start' => ['required', 'bail', new CheckDateTimeFormat(), 'bail', ],
-            'red_light_end' => ['required', 'bail', new CheckDateTimeFormat(), 'bail', new DateTimeGreaterThanDateTime('red_light_start', $this->red_light_start), 'bail',],
-            'yellow_light_start' => ['required', 'bail', new CheckDateTimeFormat(), 'bail', new DateTimeGreaterThanDateTime('red_light_end', $this->red_light_end), 'bail',],
-            'yellow_light_end' => ['required', 'bail', new CheckDateTimeFormat(), 'bail', new DateTimeGreaterThanDateTime('yellow_light_start', $this->yellow_light_start), 'bail',],
-            'green_light_start' => ['required', 'bail', new CheckDateTimeFormat(), 'bail', new DateTimeGreaterThanDateTime('yellow_light_end', $this->yellow_light_end), 'bail',],
-            'green_light_end' => ['required', 'bail', new CheckDateTimeFormat(), 'bail', new DateTimeGreaterThanDateTime('green_light_start', $this->green_light_start), 'bail',], 
+            'name' => ['required', 'bail', new MinimumStringLength(4), 'bail',], 
+            'red_light_start' => ['required', 'bail', new CheckDateTimeFormat(), 'bail', new DateTimeCannotGreaterThanOrEqualToRule(new DateTime('now')), 'bail', ],
+            'red_light_duration_in_seconds' => ['required', 'bail', new CheckIntegerFormat(), 'bail', new IntegerGreaterThanOrEqual(8), 'bail',],
+            'yellow_light_duration_in_seconds' => ['required', 'bail', new CheckIntegerFormat(), 'bail', new IntegerGreaterThanOrEqual(1), 'bail',],
+            'green_light_duration_in_seconds' => ['required', 'bail', new CheckIntegerFormat(), 'bail', new IntegerGreaterThanOrEqual(20), 'bail',],
         ];
 
     }
@@ -39,11 +41,9 @@ class TrafficLightRequest extends FormRequest {
             'longitude.required' => 'Longitude is required.',
             'name.required' => 'Enter the traffic light name.',
             'red_light_start.required' => "The red_light_start was not found.",
-            'red_light_end.required' => 'The red_light_end was not found.',
-            'yellow_light_start.required' => 'The yellow_light_start was not found.',
-            'yellow_light_end.required' => 'The yellow_light_end was not found.',
-            'green_light_start.required' => 'The green_light_start was not found.',
-            'green_light_end.required' => 'The green_light_end was not found.',
+            'red_light_duration_in_seconds.required' => 'The red_light_duration_in_seconds was not found.',
+            'yellow_light_duration_in_seconds.required' => 'The yellow_light_duration_in_seconds was not found.',
+            'green_light_duration_in_seconds.required' => 'The green_light_duration_in_seconds was not found.',
         ];
 
     }
