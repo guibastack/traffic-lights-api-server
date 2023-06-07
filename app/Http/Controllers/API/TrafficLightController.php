@@ -35,14 +35,9 @@ class TrafficLightController extends Controller {
 
         $trafficLightHistoryItem = new TrafficLightHistoryItem();
         $trafficLightHistoryItem->red_light_start = new DateTime($request->red_light_start);
-        $trafficLightHistoryItem->red_light_duration_in_seconds = $request->red_light_end - $request->red_light_start;
-        $trafficLightHistoryItem->red_light_end = new DateTime($request->red_light_end);
-        $trafficLightHistoryItem->yellow_light_start = new DateTime($request->yellow_light_start);
-        $trafficLightHistoryItem->yellow_light_duration_in_seconds = $request->yellow_light_end - $request->yellow_light_start;
-        $trafficLightHistoryItem->yellow_light_end = new DateTime($request->yellow_light_end);
-        $trafficLightHistoryItem->green_light_start = new DateTime($request->green_light_start);
-        $trafficLightHistoryItem->green_light_duration_in_seconds = $request->green_light_end - $request->green_light_start;
-        $trafficLightHistoryItem->green_light_end = new DateTime($request->green_light_end);
+        $trafficLightHistoryItem->red_light_duration_in_seconds = $request->red_light_duration_in_seconds;
+        $trafficLightHistoryItem->yellow_light_duration_in_seconds = $request->yellow_light_duration_in_seconds;
+        $trafficLightHistoryItem->green_light_duration_in_seconds = $request->green_light_duration_in_seconds;
         $trafficLightHistoryItem->traffic_light = $trafficLight->id;
         $trafficLightHistoryItem->user = $user->id;
         $trafficLightHistoryItem->name = $request->name;
