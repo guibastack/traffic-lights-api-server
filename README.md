@@ -234,7 +234,7 @@
         <strong>Body type</strong>: JSON
     </li>
     <li>
-        <strong>Body data</strong>: <code>{"latitude": "99,99999999", "longitude": "99,99999999", "name": "Crossing between 1st street and 2nd street", "red_light_start": (string format: 2023-06-07 15:40:00), "red_light_duration_in_seconds": "45", "yellow_light_duration_in_seconds": "2", "green_light_duration_in_seconds": "180"}</code>
+        <strong>Body data</strong>: <code>{"latitude": "99,99999999", "longitude": "99,99999999", "name": "Crossing between 1st street and 2nd street", "red_light_start": (string format: "2023-06-07 15:40:00"), "red_light_duration_in_seconds": 45, "yellow_light_duration_in_seconds": 2, "green_light_duration_in_seconds": 180}</code>
     </li>
 </ul>
 
