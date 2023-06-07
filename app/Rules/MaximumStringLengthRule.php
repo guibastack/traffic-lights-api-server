@@ -5,7 +5,7 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\ValidationRule as ValidationRule;
 use \Closure as Closure;
 
-class MaximumStringLength implements ValidationRule {
+class MaximumStringLengthRule implements ValidationRule {
 
     private int $maximumSize;
 
